@@ -2,7 +2,7 @@ const fs=require('fs'); //built in module
 const http =require('http');//built in module
 const url=require('url');
 const replaceTemplate=require('./modules/replaceTemplate');
-
+const slugify=require('slugify');
 ////SERVER////(create and start a server) (look at ////%%%% line below)
 
 //replacing the place holders with real data
@@ -17,8 +17,9 @@ const tempProduct=fs.readFileSync(`${__dirname}/templates/template-product.html`
 const data=fs.readFileSync(`${__dirname}/dev-data/data.json`,'utf-8') ; //for api data reading
 const dataObj=JSON.parse(data);
 
-
-
+const slugs=dataObj.map(el=>slugify(el.productName,{lower:true}));
+console.log(slugs);
+//console.log(slugify('Fresh Avacados',{lower:true}));
 
    const server=http.createServer((req,res)=>{ ///%%%%             //its a callback function
    
